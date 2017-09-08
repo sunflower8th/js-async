@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        
+//     var curry = function(fn){
+//         var _args = [];
+//         return function cb(){
+//             if(arguments.length == 0){
+//                 return fn.apply(this, _args);
+//             }
+//             Array.prototype.push.apply(_args, arguments);
+//             return cb;
+//         }
+//     }
+
+//     var add = function(){
+//         return [].slice.call(arguments, 0).reduce(function(a, b){
+//             return a + b;
+//         }, 0)
+//     }
+// var curryAdd = curry(add);
+// curryAdd(1)(2)(3)() //6
+
+// // Generator函数
+// /*
+// 1,function* 命名函数
+// 2，yield 相当于return
+// yield 表达式暂停了 Generator 函数的执行，然后可以从暂停的地方恢复执行。
+// */
+
+
+// function* quips(name) {
+//   yield "hello " + name + "!";
+//   yield "i hope you are enjoying the blog posts";
+//   if (name.startsWith("X")) {
+//     yield "it's cool how your name starts with X, " + name;
+//   }
+//   yield "see you later!";
+// }
+// // 调用generator 函数返回generator对象 并不会立即执行
+// var iter = quips('lll');
+// console.log(iter.next()) 
+
+
+// function* gen(x){
+//   var y = yield x + 2;
+//   return y;
+// }
+// var g = gen(1);
+// console.log(g)
+// console.log(g.next()) ;
+// console.log(g.next(2)) ;// 规定上一个异步y的返回值
+
+
+// var Thunk = function(fn){
+//   return function (){
+//       console.log('ineer'+arguments)
+//     var args = Array.prototype.slice.call(arguments);
+//     return function (callback){
+//       args.push(callback);
+//       return fn.apply(this, args);
+//     }
+//   };
+// };
+// function fun(){
+//     console.log('outer'+arguments)
+// }
+// Thunk(fun)
+
+// 迭代器
+var rang = function(min,max){
+    return {
+        cur:min,
+        hasNext:function(){
+            return this.cur<max;
+        },
+        next:function(){
+          return this.cur++
+        },
+        reset:function(){
+          throw Error('unsuppoer opeator')  
+        }
+    }
+}
+
+for(var iter = rang(1,10);iter.hasNext();){
+    i = iter.next();
+    console.log(i);
+}
+
+
+
+
+
+
+
+
+
+
+
+</script>
+    
+</body>
+</html>
