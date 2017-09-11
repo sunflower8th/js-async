@@ -5,7 +5,7 @@ var fileName = 'file1.text';
 // 1,普通方法 读文件
 fs.readFile(fileName,function(err,data){
   if(!err){
-    // console.log(data.toString())
+    console.log("异步回调函数读取结果"+data.toString())
   }
 })
 
@@ -52,6 +52,33 @@ var thunkPromiseRes = thunkPromise().next();
 thunkPromiseRes.value.then(function(data){
    console.log('promise读取的结果 '+data)
 })
+
+// 使用co + generator 
+//  co 函数包裹了promise
+var co = require('co');
+var readFile2 = (path)=>{
+  return cb => {
+    fs.readFile(path,(err,content)=>{
+      if(!err){
+        cb(err,content)
+      }
+    })
+  }
+}
+
+function *coThunk(){
+  var str1 = yield readFile2(__dirname+'/file1.text');
+  // console.log(str1.toString())
+  var str2 = yield readFile2(__dirname+'/file2.text')
+  // console.log(str2)
+  return [str1,str2]
+}
+
+co(coThunk()).then(result => {
+  console.log("co 函数读取返回结果"+result)
+})
+
+
 
 
 
